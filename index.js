@@ -2,6 +2,7 @@ const express = require("express");
 const cors=require("cors")
 const { connection } = require("./configs/db");
 const { WorkOutRoutes } = require("./Routes/Workout.Routes");
+const { PostRoutes } = require("./Routes/Post.Routes");
 
 
 
@@ -10,7 +11,9 @@ require("dotenv").config();
 const app = express();
 
 app.use(cors({
+
   origin:"*"
+
 }));
 
 app.use(express.json());
@@ -23,7 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/workout",WorkOutRoutes)
 
-
+app.use("/post",PostRoutes)
 
 
 app.listen(process.env.port, async () => {
