@@ -6,9 +6,9 @@ const otpGenerator = require("otp-generator");
 // const fast2sms = require('fast-two-sms')
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
-const User = require("../Model/user.model");
-const { Otp } = require("../Model/otpModel");
+const client = require("twilio")(accountSid, authToken);
+const User = require("../models/user.model");
+const { Otp } = require("../models/otpModel");
 
 router.post("/signup", async (req, res) => {
   const user = await User.findOne({
@@ -28,14 +28,13 @@ router.post("/signup", async (req, res) => {
   const number = req.body.number;
 
   client.messages
-      .create({
-         body: `Your OTP to login is ${OTP}`,
-         from: '+12766002036',
-         statusCallback: 'http://postb.in/1234abcd',
-         to: `+91${number}`
-       })
-      .then(message => console.log(message.sid));
-
+    .create({
+      body: `Your OTP to login is ${OTP}`,
+      from: "+12766002036",
+      statusCallback: "http://postb.in/1234abcd",
+      to: `+91${number}`,
+    })
+    .then((message) => console.log(message.sid));
 
   const otp = new Otp({ number: number, otp: OTP });
 

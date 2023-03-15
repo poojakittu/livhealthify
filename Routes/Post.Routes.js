@@ -1,5 +1,5 @@
 const express = require("express");
-const {PostModel, CommentModel}=require("../Model/Post.Model")
+const {PostModel, CommentModel}=require("../models/Post.Model")
 
 
 
@@ -26,6 +26,15 @@ PostRoutes.get("/", async (req, res) => {
   }
 });
 
+PostRoutes.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const product = await PostModel.findById(id);
+    res.send(product);
+  } catch (error) {
+    res.status(404).send({ msg: "something went wrong" });
+  }
+});
 
 PostRoutes.post('/add', async (req, res) => {
   try {
@@ -41,6 +50,38 @@ PostRoutes.post('/add', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+PostRoutes.patch("/update/:id", async (req, res) => {
+  const Id = req.params.id;
+  const payload = req.body;
+
+  try {
+      await PostModel.findByIdAndUpdate({ _id: Id }, payload);
+      res.send({ msg: "updated Sucessfully" });
+    
+  } catch (err) {
+    console.log(err);
+    res.send({ err: "Something went wrong" });
+  }
+});
+
+PostRoutes.delete("/delete/:id", async (req, res) => {
+  const Id = req.params.id;
+  const note = await PostModel.findOne({ _id: Id });
+  const hotelId = note.created_by;
+  const userId_making_req = req.body.created_by;
+  try {
+    if (userId_making_req !== hotelId) {
+      res.send({ msg: "You are not Recognized" });
+    } else {
+      await PostModel.findByIdAndDelete({ _id: Id });
+      res.send("Deleted the Hotel Data");
+    }
+  } catch (err) {
+    console.log(err);
+    res.send({ msg: "Something went wrong" });
   }
 });
 
@@ -60,6 +101,7 @@ PostRoutes.post('/addcomment', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 
 
