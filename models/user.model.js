@@ -11,32 +11,32 @@ number: {
 },
 name: {
   type: String,
-  required: true,
+ 
 },
 referralcode:{
   type: String,
-  required: true,
+  
 },
 city: {
   type: String,
-  required: true,
+  
 },
 pincode: {
   type: String,
-  required: true,
+ 
 },
 language: [],
 gender: {
   type: String,
-  required: true,
+ 
 },
 age: {
   type: String,
-  required: true,
+  
 },
 physicallyactive: {
   type: String,
-  required: true,
+ 
 },
 password: {
   type: String,

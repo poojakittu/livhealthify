@@ -12,7 +12,7 @@ const userRouter = require("./routes/userRouter");
 const { WorkOutRoutes } = require("./Routes/Workout.Routes.js");
 const { PostRoutes } = require("./Routes/Post.Routes.js");
 
-
+require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -38,7 +38,7 @@ app.use("/post",PostRoutes)
 
 
 
-app.listen(8080, () => {
+app.listen(process.env.port, () => {
   try {
     connection();
     console.log("listening on port 8080");
