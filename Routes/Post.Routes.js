@@ -11,6 +11,20 @@ const PostRoutes=express.Router();
 
 
 // const upload = multer({ storage });
+PostRoutes.get("/", async (req, res) => {
+  const payload = req.body;
+  try {
+    const product = await PostModel.find();
+    console.log(product);
+    res.send({ data: product });
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).send({
+      error: true,
+      msg: "something went wrong",
+    });
+  }
+});
 
 
 PostRoutes.post('/add', async (req, res) => {
@@ -46,6 +60,7 @@ PostRoutes.post('/addcomment', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 
 
