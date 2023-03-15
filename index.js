@@ -8,7 +8,7 @@ const {
   userLoggedIn,
 } = require("./controllers/user.controller.js");
 // const productRouter = require("./routes/product.routes");
-const userRouter = require("./routes/userRouter.js");
+const userRouter = require("./routes/userRouter");
 const { WorkOutRoutes } = require("./Routes/Workout.Routes.js");
 const { PostRoutes } = require("./Routes/Post.Routes.js");
 
