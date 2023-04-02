@@ -4,9 +4,10 @@ const cors = require("cors");
 
 
  
-const { ProductRoutes } = require("./routes/product.routes");
+
 const { CartRoutes } = require("./routes/Cart.Routes.js");
 const { caloriesRoutes } = require("./routes/calories.Routes.js");
+const { ProductRoutes } = require("./routes/product.routes.js");
 
 
 const app = express();
@@ -27,10 +28,10 @@ app.use("/calories",caloriesRoutes)
 
 
 
-app.listen(8000, () => {
+app.listen(8800, () => {
   try {
     connection();
-    console.log("listening on port 8000");
+    console.log("listening on port 8800");
   } catch (error) {
     console.log(error);
   }
