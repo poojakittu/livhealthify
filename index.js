@@ -14,14 +14,13 @@ app.get("/", (req, res) => {
 
 app.use("/otp", require("./routes/otp.routes"));
 
-
-
-
-app.listen(8800, () => {
+app.listen(process.env.port, async () => {
   try {
-    connection();
-    console.log("listening on port 8800");
-  } catch (error) {
-    console.log(error);
+    await connection;
+    console.log("connect to db");
+  } catch (err) {
+    console.log("Error while connecting to DB");
+    console.log(err);
   }
+  console.log(`Server running at ${process.env.port}`);
 });
