@@ -2,17 +2,13 @@ const express = require("express");
 const connection = require("./config/db.js");
 const cors = require("cors");
 
-const {
-  signup,
-  login,
-  userLoggedIn,
-} = require("./controllers/user.controller.js");
-// const productRouter = require("./routes/product.routes");
-const userRouter = require("./routes/userRouter");
-const { WorkOutRoutes } = require("./Routes/Workout.Routes.js");
-const { PostRoutes } = require("./Routes/Post.Routes.js");
 
-require("dotenv").config();
+const { router } = require("./routes/otp.routes.js");
+const { ProductRoutes } = require("./routes/product.routes.js");
+const { CartRoutes } = require("./routes/Cart.Routes.js");
+const { caloriesRoutes } = require("./routes/calories.Routes.js");
+
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -22,26 +18,19 @@ app.get("/", (req, res) => {
     message: "welcome",
   });
 });
-app.use("/api/user", userRouter);
-// app.use("/api/products", productRouter);
 
-app.post("/signup", signup);
-
-app.post("/login", login);
-
-app.get("/userLoggedIn", userLoggedIn);
-app.use("/workout",WorkOutRoutes)
-
-app.use("/post",PostRoutes)
+app.use("/otp", require("./routes/otp.routes"));
+app.use("/product",ProductRoutes)
+app.use("/cart",CartRoutes)
+app.use("/calories",caloriesRoutes)
 
 
 
 
-
-app.listen(process.env.port, () => {
+app.listen(8000, () => {
   try {
     connection();
-    console.log("listening on port 8080");
+    console.log("listening on port 8000");
   } catch (error) {
     console.log(error);
   }
