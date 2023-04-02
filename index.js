@@ -5,8 +5,8 @@ const cors = require("cors");
 
  
 
-const { CartRoutes } = require("./routes/Cart.Routes.js");
-const { caloriesRoutes } = require("./routes/calories.Routes.js");
+const { CartRoutes } = require("./routes/Cart.Routes");
+const { caloriesRoutes } = require("./routes/calories.Routes");
 const { ProductRoutes } = require("./routes/product.routes");
 
 
