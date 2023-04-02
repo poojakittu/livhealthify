@@ -376,5 +376,5 @@ ProductRoutes.delete("/delete/:id",  async (req, res) => {
 });
 
 module.exports = {
-  ProductRoutes,
+  ProductRoutes
 };
