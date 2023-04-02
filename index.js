@@ -3,7 +3,7 @@ const connection = require("./config/db.js");
 const cors = require("cors");
 
 
-const { router } = require("./routes/otp.routes.js");
+ 
 const { ProductRoutes } = require("./routes/product.routes.js");
 const { CartRoutes } = require("./routes/Cart.Routes.js");
 const { caloriesRoutes } = require("./routes/calories.Routes.js");
