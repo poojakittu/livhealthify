@@ -5,10 +5,10 @@ const cors = require("cors");
 
  
 
-const { CartRoutes } = require("./routes/Cart.Routes");
+// const { CartRoutes } = require("./routes/Cart.Routes");
 
-const { ProductRoutes } = require("./routes/product.routes");
-const { caloriesRoutes } = require("./routes/calories.Routes.js");
+// const { ProductRoutes } = require("./routes/product.routes");
+// const { caloriesRoutes } = require("./routes/calories.Routes.js");
 
 
 const app = express();
@@ -22,9 +22,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/otp", require("./routes/otp.routes"));
-app.use("/product",ProductRoutes)
-app.use("/cart",CartRoutes)
-app.use("/calories",caloriesRoutes)
+// app.use("/product",ProductRoutes)
+// app.use("/cart",CartRoutes)
+// app.use("/calories",caloriesRoutes)
 
 
 
