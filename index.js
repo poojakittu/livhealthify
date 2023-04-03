@@ -2,7 +2,7 @@ const express = require("express");
 const connection = require("./config/db.js");
 const cors = require("cors");
 
-const {otpRouter}=require("./routes/otp.routes")
+// const {otpRouter}=require("./routes/otp.routes")
 
 const { ProductRoutes } = require("./routes/product.routes.js");
 const { CartRoutes } = require("./routes/Cart.Routes.js");
@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/otp",otpRouter);
+// app.use("/otp",otpRouter);
 app.use("/product",ProductRoutes)
 app.use("/cart",CartRoutes)
 app.use("/calories",caloriesRoutes)
