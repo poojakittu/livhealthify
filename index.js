@@ -2,9 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const { connection } = require("./configs/db");
-// const {ProductRoutes}=require("./Routes/product.routes")
-// const {CartRoutes}=require("./Routes/Cart.Routes")
-// const {caloriesRoutes}=require("./Routes/calories.Routes")
+
 
 
 
@@ -27,9 +25,7 @@ app.get("/", (req, res) => {
 
 
 app.use("/otp", require("./Routes/otp.routes"));
-// app.use("/product",ProductRoutes)
-// app.use("/cart",CartRoutes)
-// app.use("/calories",caloriesRoutes)
+
 
 
 
