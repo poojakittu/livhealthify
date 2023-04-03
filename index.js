@@ -27,10 +27,10 @@ app.use("/calories",caloriesRoutes)
 
 
 
-app.listen(8080, () => {
+app.listen(process.env.port, () => {
   try {
     connection();
-    console.log("listening on port 8080");
+    console.log("connection done");
   } catch (error) {
     console.log(error);
   }
