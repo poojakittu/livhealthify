@@ -1,6 +1,6 @@
 const express = require("express");
 const authMiddleware = require("../middleware/auth.middleware");
-const { CartModel } = require("../models/Cart.Model");
+const { CartModel } = require("../Model/Cart.Model");
 const CartRoutes = express.Router();
 const jwt = require("jsonwebtoken");
 

@@ -46,6 +46,11 @@ const productSchema = new mongoose.Schema(
     sku:{ type: String },
     madeIn:{ type: String },
     emi: { type: Number },
+
+    vendorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "vendor",
+    },
   },
 
   {
@@ -54,7 +59,7 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-const ProductModel = mongoose.model("pooja", productSchema);
+const ProductModel = mongoose.model("product", productSchema);
 
 module.exports = {
   ProductModel,

@@ -3,7 +3,7 @@ const router = express.Router();
 const otpGenerator = require("otp-generator");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
-const OtpModel = require("../models/otp.model");
+const OtpModel = require("../Model/otp.model");
 const authMiddleware = require("../middleware/auth.middleware");
 const client = require("twilio")(
   process.env.TWILIO_ACCOUNT_SID,

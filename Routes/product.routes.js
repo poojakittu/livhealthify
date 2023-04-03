@@ -1,8 +1,8 @@
 const express = require("express");
-
+const { authenticate } = require("../middleware/authentication.middleware");
 const ProductRoutes = express.Router();
 
-const { ProductModel } = require("../models/product.Model");
+const { ProductModel } = require("../Model/Product.Model");
 
 ProductRoutes.get("/allproductdata", async (req, res) => {
   try {
@@ -239,7 +239,7 @@ ProductRoutes.get("/allproductdata", async (req, res) => {
   }
 });
 
-ProductRoutes.get("/", async (req, res) => {
+ProductRoutes.get("/", authenticate, async (req, res) => {
   const payload = req.body;
   try {
     const product = await ProductModel.find({ vendorId: payload.vendorId });
@@ -323,19 +323,19 @@ ProductRoutes.get("/:id", async (req, res) => {
   }
 });
 
-ProductRoutes.post("/add",async (req, res) => {
- let data = req.body;
+ProductRoutes.post("/add", authenticate, async (req, res) => {
   try {
+    let data = req.body;
     let data1 = new ProductModel(data);
-    let x=await data1.save()
-    res.send(x);
-   
+    let saved = await data1.save();
+
+    res.send({ msg: "Data Added" });
   } catch (err) {
     res.send({ msg: "could not add Data" });
   }
 });
 
-ProductRoutes.patch("/update/:id", async (req, res) => {
+ProductRoutes.patch("/update/:id", authenticate, async (req, res) => {
   const Id = req.params.id;
   const payload = req.body;
 
@@ -357,7 +357,7 @@ ProductRoutes.patch("/update/:id", async (req, res) => {
   }
 });
 
-ProductRoutes.delete("/delete/:id",  async (req, res) => {
+ProductRoutes.delete("/delete/:id", authenticate, async (req, res) => {
   const Id = req.params.id;
   const note = await ProductModel.findOne({ _id: Id });
   const hotelId = note.created_by;
