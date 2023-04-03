@@ -23,9 +23,9 @@ app.get("/", (req, res) => {
 
 
 app.use("/otp", require("./Routes/otp.routes"));
-app.use("/product",ProductRoutes)
-app.use("/cart",CartRoutes)
-app.use("/calories",caloriesRoutes)
+app.use("/product",require("./Routes/product.routes"))
+app.use("/cart",require("./Routes/Cart.Routes"))
+app.use("/calories",require("./Routes/calories.Routes"))
 
 
 
