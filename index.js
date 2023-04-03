@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.use("/otp", require("./routes/otp.routes"));
+// app.use("/otp", require("./routes/otp.routes"));
 
 app.listen(process.env.port, async () => {
   try {
