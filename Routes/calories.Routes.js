@@ -58,21 +58,115 @@ caloriesRoutes.post("/add", async (req, res) => {
 caloriesRoutes.patch("/update/:id", async (req, res) => {
   const Id = req.params.id;
   const val = req.query.q;
-  const foodid = req.query.foodId;
+  const foodid = req.query.foodid;
 
   try {
-    const data = await caloriesModel.find({ _id: Id });
+    const data = await caloriesModel.findById(Id);
     if (val == "breakfast") {
-      data.forEach((el) => {
-        el.breakfast.forEach((item) => {
-          if (item._id == foodid) {
-            console.log(yes);
-          }
-        });
+      let sum=0
+      let total=0
+      data.breakfast.forEach((item) => {
+        const x = JSON.stringify(item._id);
+        const y = JSON.stringify(foodid);
+        if (x == y) {
+          item.istrue = "true";
+        }
+        if(item.istrue=="true"){
+          sum+=(item.calories);
+        }
+        total+=(item.calories);
+        
       });
+      await data.save();    
+      res.send({data:data.breakfast,consumption:sum,total:total});
+    }  else if (val == "lunch") {
+      let sum=0
+      let total=0
+      data.lunch.forEach((item) => {
+        const x = JSON.stringify(item._id);
+        const y = JSON.stringify(foodid);
+        if (x == y) {
+          item.istrue = "true";
+        }
+        if(item.istrue=="true"){
+          sum+=(item.calories);
+        }
+        total+=(item.calories);
+        
+      });
+      await data.save();
+      res.send({data:data.lunch,consumption:sum,total:total});
+    } else if (val == "eveningsnacks") {
+      let sum=0
+      let total=0
+      data.eveningsnacks.forEach((item) => {
+        const x = JSON.stringify(item._id);
+        const y = JSON.stringify(foodid);
+        if (x == y) {
+          item.istrue = "true";
+        }
+        if(item.istrue=="true"){
+          sum+=(item.calories);
+        }
+        total+=(item.calories);
+        
+      });
+      await data.save();
+      res.send({data:data.eveningsnacks,consumption:sum,total:total});
+    } else if (val == "dinner") {
+      let sum=0
+      let total=0
+      data.dinner.forEach((item) => {
+        const x = JSON.stringify(item._id);
+        const y = JSON.stringify(foodid);
+        if (x == y) {
+          item.istrue = "true";
+        }
+        if(item.istrue=="true"){
+          sum+=(item.calories);
+        }
+        total+=(item.calories);
+        
+      });
+      await data.save();
+      res.send({data:data.dinner,consumption:sum,total:total});
     }
+    let value=0;
+    let total_calories=0
+    data.breakfast.forEach((el)=>{
+      if(el.istrue=="true"){
+        value+=el.calories
+      }else{
+        total_calories+=el.calories
+      }
+    })
+    data.lunch.forEach((el)=>{
+      if(el.istrue=="true"){
+        value+=el.calories
+      }else{
+        total_calories+=el.calories
+      }
+    })
+    data.eveningsnacks.forEach((el)=>{
+      if(el.istrue=="true"){
+        value+=el.calories
+      }else{
+        total_calories+=el.calories
+      }
+    })
+    data.dinner.forEach((el)=>{
+      if(el.istrue=="true"){
+        value+=el.calories
+      }else{
+        total_calories+=el.calories
+      }
+    })
 
-    res.send({ msg: "updated Sucessfully" });
+    const updateValue={
+      Targetcalories:total_calories+value,
+      Consumedcalories:value
+    }
+    await caloriesModel.findByIdAndUpdate({_id:Id},updateValue)
   } catch (err) {
     console.log(err);
     res.send({ err: "Something went wrong" });
