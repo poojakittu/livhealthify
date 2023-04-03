@@ -2,7 +2,7 @@ const express = require("express");
 const { postModel } = require("../Model/Post.Model");
 
 const PostRoutes = express.Router();
-PostRoutes.get("/", async (req, res) => {
+PostRoutes.get("/allpost", async (req, res) => {
   const payload = req.body;
   try {
     const product = await postModel.find();
