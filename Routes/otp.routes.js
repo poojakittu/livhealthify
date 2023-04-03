@@ -1,5 +1,5 @@
 const express = require("express");
-const otpRouter = express.Router();
+const router = express.Router();
 const otpGenerator = require("otp-generator");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
@@ -11,9 +11,8 @@ const client = require("twilio")(
 );
 
 // POST /otp/send
-otpRouter.post("/send", async (req, res) => {
-  const { phoneNumber, email, name,purpose,referralcode,city,pincode,language,gender,
-    physicallyactive,age,height,currentweight,targetweight,medicalcondition } = req.body;
+router.post("/send", async (req, res) => {
+  const { phoneNumber, email, name } = req.body;
   const otpCode = otpGenerator.generate(6, {
     digits: true,
     alphabets: true,
@@ -27,8 +26,9 @@ otpRouter.post("/send", async (req, res) => {
     const data = await OtpModel.find({ phoneNumber: phoneNumber });
     if (data.length==0) {
       const otp = new OtpModel({
-        phoneNumber, email, name,purpose,referralcode,city,pincode,language,gender,
-        physicallyactive,age,height,currentweight,targetweight,medicalcondition,
+        phoneNumber,
+        email,
+        name,
         otp: otpCode,
         expiresAt,
       });
@@ -69,7 +69,7 @@ otpRouter.post("/send", async (req, res) => {
 });
 
 // POST /otp/verify
-otpRouter.post("/verify", async (req, res) => {
+router.post("/verify", async (req, res) => {
   const { phoneNumber, otpCode } = req.body;
 
   try {
@@ -99,7 +99,7 @@ otpRouter.post("/verify", async (req, res) => {
   }
 });
 
-otpRouter.get("/", authMiddleware, async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   const token = req.headers.authorization;
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   try {
@@ -113,4 +113,4 @@ otpRouter.get("/", authMiddleware, async (req, res) => {
   }
 });
 
-module.exports = {otpRouter};
+module.exports = router;
