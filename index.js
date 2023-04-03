@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const { connection } = require("./configs/db");
 const { ProductRoutes } = require("./Routes/product.routes");
+const { PostRoutes } = require("./Routes/Post.Routes");
 
 
 
@@ -26,7 +27,8 @@ app.get("/", (req, res) => {
 
 
 app.use("/otp", require("./Routes/otp.routes"));
-app.use("/product",ProductRoutes)
+app.use("/product",ProductRoutes);
+app.use("/post",PostRoutes);
 
 
 
