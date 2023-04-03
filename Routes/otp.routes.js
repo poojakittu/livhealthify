@@ -12,7 +12,20 @@ const client = require("twilio")(
 
 // POST /otp/send
 router.post("/send", async (req, res) => {
-  const { phoneNumber, email, name } = req.body;
+  const {
+    phoneNumber,
+    email,
+    name,
+    requirement,
+    city,
+    state,
+    sex,
+    age,
+    activity,
+    weight,
+    height,
+    medicalcondition,
+  } = req.body;
   const otpCode = otpGenerator.generate(6, {
     digits: true,
     alphabets: true,
@@ -24,9 +37,18 @@ router.post("/send", async (req, res) => {
   try {
     // Save the OTP code and expiration date to the database
     const data = await OtpModel.find({ phoneNumber: phoneNumber });
-    if (data.length==0) {
+    if (data.length == 0) {
       const otp = new OtpModel({
+        requirement,
+        activity,
+        weight,
+        height,
+        age,
+        sex,
+        state,
+        city,
         phoneNumber,
+        medicalcondition,
         email,
         name,
         otp: otpCode,

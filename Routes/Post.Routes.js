@@ -2,6 +2,8 @@ const express = require("express");
 const { postModel } = require("../Model/Post.Model");
 
 const PostRoutes = express.Router();
+
+
 PostRoutes.get("/allpost", async (req, res) => {
   const payload = req.body;
   try {
