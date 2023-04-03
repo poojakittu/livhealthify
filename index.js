@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 
 app.use("/otp", require("./Routes/otp.routes"));
-app.use("product",ProductRoutes)
+app.use("/product",ProductRoutes)
 
 
 
