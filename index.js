@@ -2,6 +2,13 @@ const express = require("express");
 const connection = require("./config/db.js");
 const cors = require("cors");
 
+
+const { router } = require("./routes/otp.routes.js");
+const { ProductRoutes } = require("./routes/product.routes.js");
+const { CartRoutes } = require("./routes/Cart.Routes.js");
+const { caloriesRoutes } = require("./routes/calories.Routes.js");
+
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -12,16 +19,19 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/otp", require("./routes/otp.routes"));
+app.use("/product",ProductRoutes)
+app.use("/cart",CartRoutes)
+app.use("/calories",caloriesRoutes)
 
-// app.use("/otp", require("./routes/otp.routes"));
 
-app.listen(process.env.port, async () => {
+
+
+app.listen(8080, () => {
   try {
-    await connection;
-    console.log("connect to db");
-  } catch (err) {
-    console.log("Error while connecting to DB");
-    console.log(err);
+    connection();
+    console.log("listening on port 8080");
+  } catch (error) {
+    console.log(error);
   }
-  console.log(`Server running at ${process.env.port}`);
 });
