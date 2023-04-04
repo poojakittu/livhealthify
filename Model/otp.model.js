@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const OtpSchema = new mongoose.Schema({
   purpose: [{ type: String,required: true }],
-  referralcode:{ type: String,required: true,default:"00000" },
+  referralcode:{ type: String,default:"00000" },
   city: { type: String,required: true },
   pincode:{ type: Number,required: true },
   language:{ type: String,required: true },
