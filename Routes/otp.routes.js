@@ -16,15 +16,20 @@ router.post("/send", async (req, res) => {
     phoneNumber,
     email,
     name,
-    requirement,
-    city,
-    state,
-    sex,
+    pincode,
+    purpose,
+    referralcode,
+    language,
+    gender,
     age,
-    activity,
-    weight,
-    height,
+    physicallyactive,
     medicalcondition,
+    currentweight,
+    targetweight,
+    height,
+    
+
+    city
   } = req.body;
   const otpCode = otpGenerator.generate(6, {
     digits: true,
@@ -39,16 +44,19 @@ router.post("/send", async (req, res) => {
     const data = await OtpModel.find({ phoneNumber: phoneNumber });
     if (data.length == 0) {
       const otp = new OtpModel({
-        requirement,
-        activity,
-        weight,
-        height,
-        age,
-        sex,
-        state,
+        purpose,
         city,
+        pincode,
+        referralcode,
+        targetweight,
+        height,
+        currentweight,
+        gender,
+        age,
         phoneNumber,
+        physicallyactive,
         medicalcondition,
+        language,
         email,
         name,
         otp: otpCode,
@@ -62,7 +70,6 @@ router.post("/send", async (req, res) => {
       const x = await OtpModel.findById({ _id: data[0]._id });
       const pay = { otp: otpCode, expiresAt };
       const a = await OtpModel.findByIdAndUpdate({ _id: data[0]._id }, pay);
-      console.log(a);
       res.send(otpCode);
     }
 
