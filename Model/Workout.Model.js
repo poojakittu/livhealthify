@@ -2,41 +2,24 @@ const mongoose = require("mongoose");
 
 const WorkoutSchema = new mongoose.Schema(
   {
-    Targetcalories: { type: Number, required: true },
-    date:{type:String,default:"000"},
-    Consumedcalories: { type: Number, required: true, default: 0 },
-    breakfast: [
+    Target: { type: Number, default: 0 },
+    //20.8%(targetNutrition)
+    date: { type: String, default: "000" },
+    burn: { type: Number, required: true, default: 0 },
+    //cal
+    type: [
       {
-        name: { type: String, required: true },
-        quantity: { type: String, required: true },
-        istrue: { type: String, default: false },
-        calories: { type: Number, required: true },
+        name: { type: String },
+        motion: { type: String },
+        speed: { type: Number },
+        time: { type: Number },
+        distance: { type: Number },
+        calories: { type: Number },
+        reps:{ type: String },
+        level:{ type: String }
       },
     ],
-    lunch: [
-      {
-        name: { type: String, required: true },
-        quantity: { type: String, required: true },
-        istrue: { type: String, default: false },
-        calories: { type: Number, required: true },
-      },
-    ],
-    eveningsnacks: [
-      {
-        name: { type: String, required: true },
-        quantity: { type: String, required: true },
-        istrue: { type: String, default: false },
-        calories: { type: Number, required: true },
-      },
-    ],
-    dinner: [
-      {
-        name: { type: String, required: true },
-        quantity: { type: String, required: true },
-        istrue: { type: String, default: false },
-        calories: { type: Number, required: true },
-      },
-    ],
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   {
     versionKey: false,
@@ -44,8 +27,8 @@ const WorkoutSchema = new mongoose.Schema(
   }
 );
 
-const caloriesModel = mongoose.model("Workout", WorkoutSchema);
+const WorkourModel = mongoose.model("Workout", WorkoutSchema);
 
 module.exports = {
-  caloriesModel,
+  WorkourModel,
 };

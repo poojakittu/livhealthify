@@ -8,13 +8,11 @@ const productSchema = new mongoose.Schema(
     rating: { type: Number },
     info: { type: String },
     brand: { type: String },
-   
     description: { type: String },
     image: [{ type: String }],
     review: { type: String },
     cod: { type: String },
     shipping: { type: String }
-   
   },
 
   {
