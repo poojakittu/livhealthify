@@ -6,10 +6,10 @@ const OtpModel = require("../Model/otp.model");
 
 const WeightRoutes = express.Router();
 
-WeightRoutes.get("/allweight",authMiddleware, async (req, res) => {
-  const payload = req.body;
+WeightRoutes.get("/allweight", authMiddleware, async (req, res) => {
   try {
-    const product = await weight.find({userId:req.body.userId});
+    const product = await weightModel.find({ userId: req.body.userId });
+    
     res.send({ data: product });
   } catch (error) {
     console.log("error", error);
@@ -39,7 +39,7 @@ WeightRoutes.post("/add", authMiddleware, async (req, res) => {
   }
 
   let data = await weightModel.find({ userId: req.body.userId, date: bag });
-  
+
   try {
     if (data.length == 0) {
       const post = new weightModel({
@@ -47,17 +47,17 @@ WeightRoutes.post("/add", authMiddleware, async (req, res) => {
         userId: req.body.userId,
         date: bag,
       });
-      
+
       const savedPost = await post.save();
-      const currentweight={currentweight:req.body.weight}
-      await OtpModel.findByIdAndUpdate({_id:req.body.userId},currentweight)
+      const currentweight = { currentweight: req.body.weight };
+      await OtpModel.findByIdAndUpdate({ _id: req.body.userId }, currentweight);
 
       res.status(201).json(savedPost);
     } else {
       await weightModel.findByIdAndUpdate({ _id: data[0]._id }, req.body);
-      const currentweight={currentweight:req.body.weight}
-      await OtpModel.findByIdAndUpdate({_id:req.body.userId},currentweight)
-      res.status(201).json({ message: "Weigh Updated" });;
+      const currentweight = { currentweight: req.body.weight };
+      await OtpModel.findByIdAndUpdate({ _id: req.body.userId }, currentweight);
+      res.status(201).json({ message: "Weigh Updated" });
     }
   } catch (error) {
     console.error(error);
