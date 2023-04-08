@@ -45,6 +45,7 @@ caloriesRoutes.post("/add", authMiddleware, async (req, res) => {
   for (let i = 1; i <= 10; i++) {
     bag += y[i];
   }
+  console.log(bag);
   let payload = req.body;
 
   const date = { date: bag, userId: req.body.userId };
@@ -52,12 +53,9 @@ caloriesRoutes.post("/add", authMiddleware, async (req, res) => {
   try {
     if (data.length === 0) {
       const data1 = new caloriesModel(payload);
-      // Set the "date" field in the payload
-      data1.date = date;
-      // Save the new document to the database
       const saved = await data1.save();
-      // Update the document's "date" field with the saved document's ID
-      await caloriesModel.findByIdAndUpdate(saved._id, { date: saved._id });
+      const fg = { date: bag };
+      await caloriesModel.findByIdAndUpdate({ _id: saved._id }, fg);
       res.send({ msg: "Your item is Added" });
     } else {
       const data1 = await caloriesModel.findOneAndUpdate({
@@ -108,7 +106,6 @@ caloriesRoutes.post("/add", authMiddleware, async (req, res) => {
       }
       res.send({ msg: "Your item is updated" });
     }
-    
   } catch (err) {
     res.send(err);
   }
