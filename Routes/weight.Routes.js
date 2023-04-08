@@ -6,11 +6,10 @@ const OtpModel = require("../Model/otp.model");
 
 const WeightRoutes = express.Router();
 
-WeightRoutes.get("/allweight", async (req, res) => {
+WeightRoutes.get("/allweight",authMiddleware, async (req, res) => {
   const payload = req.body;
   try {
-    const product = await weight.find();
-    console.log(product);
+    const product = await weight.find({userId:req.body.userId});
     res.send({ data: product });
   } catch (error) {
     console.log("error", error);
