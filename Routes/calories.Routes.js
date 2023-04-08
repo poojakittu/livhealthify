@@ -45,7 +45,6 @@ caloriesRoutes.post("/add", authMiddleware, async (req, res) => {
   for (let i = 1; i <= 10; i++) {
     bag += y[i];
   }
-  console.log(bag);
   let payload = req.body;
 
   const date = { date: bag, userId: req.body.userId };
@@ -103,6 +102,11 @@ caloriesRoutes.post("/add", authMiddleware, async (req, res) => {
           });
           await data1.save();
         }
+      }
+      if(payload.Targetcalories){
+        const bb={Targetcalories:req.body.Targetcalories}
+       const xh= await caloriesModel.findByIdAndUpdate({_id:data1._id},bb)
+        
       }
       res.send({ msg: "Your item is updated" });
     }
