@@ -37,6 +37,7 @@ const caloriesSchema = new mongoose.Schema(
         calories: { type: Number, required: true },
       },
     ],
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   {
     versionKey: false,

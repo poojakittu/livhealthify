@@ -19,11 +19,11 @@ caloriesRoutes.get("/allcalories", async (req, res) => {
   }
 });
 
-caloriesRoutes.get("/todaycalories", async (req, res) => {
+caloriesRoutes.get("/todaycalories",authMiddleware, async (req, res) => {
   const x = req.query.q;
 
   try {
-    const product = await caloriesModel.find({ date: x });
+    const product = await caloriesModel.find({ date: x,userId:req.body.userId });
     res.send({ data: product, total: product.length });
   } catch (error) {
     console.log("error", error);
@@ -34,7 +34,7 @@ caloriesRoutes.get("/todaycalories", async (req, res) => {
   }
 });
 
-caloriesRoutes.post("/add", async (req, res) => {
+caloriesRoutes.post("/add",authMiddleware, async (req, res) => {
   let x = new Date();
   let y = JSON.stringify(x);
   let bag = "";
@@ -42,7 +42,7 @@ caloriesRoutes.post("/add", async (req, res) => {
     bag += y[i];
   }
   let payload = req.body;
-  const date = { date: bag };
+  const date = { date: bag,userId:req.body.userId };
   // console.log(payload)
   try {
     let data1 = new caloriesModel(payload);
