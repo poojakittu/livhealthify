@@ -27,6 +27,7 @@ router.post("/send", async (req, res) => {
     currentweight,
     targetweight,
     height,
+    initialweight,
     
 
     city
@@ -59,6 +60,7 @@ router.post("/send", async (req, res) => {
         language,
         email,
         name,
+        initialweight,
         otp: otpCode,
         expiresAt,
       });
