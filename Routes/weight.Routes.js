@@ -38,10 +38,9 @@ WeightRoutes.post("/add", authMiddleware, async (req, res) => {
     bag += y[i];
   }
 
-  let data = await weightModel.find({ userId: req.body.userId, date: bag });
 
   try {
-    if (data.length == 0) {
+   
       const post = new weightModel({
         weight: req.body.weight,
         userId: req.body.userId,
@@ -53,12 +52,6 @@ WeightRoutes.post("/add", authMiddleware, async (req, res) => {
       await OtpModel.findByIdAndUpdate({ _id: req.body.userId }, currentweight);
 
       res.status(201).json(savedPost);
-    } else {
-      await weightModel.findByIdAndUpdate({ _id: data[0]._id }, req.body);
-      const currentweight = { currentweight: req.body.weight };
-      await OtpModel.findByIdAndUpdate({ _id: req.body.userId }, currentweight);
-      res.status(201).json({ message: "Weigh Updated" });
-    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
