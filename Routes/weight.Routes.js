@@ -38,7 +38,6 @@ WeightRoutes.post("/add", authMiddleware, async (req, res) => {
     bag += y[i];
   }
 
-
   try {
    
       const post = new weightModel({

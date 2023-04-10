@@ -143,5 +143,17 @@ router.get("/", authMiddleware, async (req, res) => {
     });
   }
 });
+router.get("/",  async (req, res) => {
+
+  try {
+    const product = await OtpModel.find();
+    res.send({ data: product });
+  } catch (error) {
+    res.status(500).send({
+      error: true,
+      msg: "something went wrong",
+    });
+  }
+});
 
 module.exports = router;
