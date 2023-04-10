@@ -93,31 +93,41 @@ workoutRoutes.post("/add", authMiddleware, async (req, res) => {
   }
 });
 
-// workoutRoutes.patch("/update/:id", authMiddleware, async (req, res) => {
-//   const Id = req.params.id;
-//   const que = req.query.q;
-//   const payload = req.body;
+workoutRoutes.patch("/update/:id", authMiddleware, async (req, res) => {
+  const Id = req.params.id;
+  const que = req.query.q;
+  const payload = req.body;
 
-//   try {
-//     if (Id) {
-//       await WorkourModel.findByIdAndUpdate(
-//         { _id: Id },
-//         { Target: req.body.Target }
-//       );
-//     }
-//     if (Id && que) {
-//       const data = await WorkourModel.find({ _id: Id });
-//       if(data._id==que){
+  try {
+    if (Id) {
+      await WorkourModel.findByIdAndUpdate(
+        { _id: Id },
+        { Target: req.body.Target }
+      );
+    }
+    if (Id && que) {
+      const data = await WorkourModel.findById({ _id: Id });
+      data.type.forEach((el) => {
+        if (el._id.toString() == que) {
+          (el.name = payload.type[0].name),
+            (el.motion = payload.type[0].motion),
+            (el.speed = payload.type[0].speed),
+            (el.time = payload.type[0].time),
+            (el.distance = payload.type[0].distance),
+            (el.calories = payload.type[0].calories),
+            (el.reps = payload.type[0].reps),
+            (el.level = payload.type[0].level);
+        }
+      });
+      await data.save();
+    }
 
-//       }
-//     }
-
-//     res.send({ msg: "updated Sucessfully" });
-//   } catch (err) {
-//     console.log(err);
-//     res.send({ err: "Something went wrong" });
-//   }
-// });
+    res.send({ msg: "updated Sucessfully" });
+  } catch (err) {
+    console.log(err);
+    res.send({ err: "Something went wrong" });
+  }
+});
 
 module.exports = {
   workoutRoutes,
