@@ -33,7 +33,7 @@ workoutRoutes.post("/add", authMiddleware, async (req, res) => {
   try {
     if (data.length == 0) {
       const cart = await WorkourModel.create({
-        Target: "400",
+        Target: req.body.Target,
         //20.8%(targetNutrition)
         date: bag,
         //cal
@@ -80,6 +80,28 @@ workoutRoutes.post("/add", authMiddleware, async (req, res) => {
     res.send(err);
   }
 });
+
+// workoutRoutes.patch("/update/:id",authMiddleware, async (req, res) => {
+//   const Id = req.params.id;
+//   const payload = req.body;
+
+//   const hotel = await ProductModel.findOne({ _id: Id });
+
+//   const hotelId = hotel.created_by;
+//   console.log(hotelId);
+//   const vendorId_making_req = req.body.created_by;
+//   try {
+//     if (req.body. !== hotelId) {
+//       res.send({ msg: "You are not authorized" });
+//     } else {
+//       await ProductModel.findByIdAndUpdate({ _id: Id }, payload);
+//       res.send({ msg: "updated Sucessfully" });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.send({ err: "Something went wrong" });
+//   }
+// });
 
 module.exports = {
   workoutRoutes,
