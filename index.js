@@ -8,6 +8,7 @@ const { caloriesRoutes } = require("./Routes/calories.Routes");
 const { workoutRoutes } = require("./Routes/Workout.Routes");
 const { dataRoutes } = require("./Routes/place.Routes");
 const { WeightRoutes } = require("./Routes/weight.Routes");
+const { SubscriptionRoutes } = require("./Routes/Subscription.Routes");
 
 require("dotenv").config();
 
@@ -32,6 +33,7 @@ app.use("/calories", caloriesRoutes);
 app.use("/workout", workoutRoutes);
 app.use("/data",dataRoutes)
 app.use("/weight",WeightRoutes)
+app.use("/subscription",SubscriptionRoutes)
 
 app.listen(process.env.port, async () => {
   try {
