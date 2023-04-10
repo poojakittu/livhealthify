@@ -1,5 +1,6 @@
 const express = require("express");
 const { postModel } = require("../Model/Post.Model");
+const authMiddleware = require("../middleware/auth.middleware");
 
 const PostRoutes = express.Router();
 
@@ -29,7 +30,7 @@ PostRoutes.get("/:id", async (req, res) => {
   }
 });
 
-PostRoutes.post("/add", async (req, res) => {
+PostRoutes.post("/add",authMiddleware, async (req, res) => {
   let x = new Date();
   let y = JSON.stringify(x);
   let bag = "";
@@ -45,7 +46,8 @@ PostRoutes.post("/add", async (req, res) => {
     const post = new postModel({
       title: req.body.title,
       image: req.body.image,
-      userId: "642a89efaaac34c46e36e8f9",
+      userId: req.body.userId,
+      description:req.body.description,
       date: x,
       postdate: bag,
       time: time,

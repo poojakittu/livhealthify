@@ -44,6 +44,7 @@ WeightRoutes.post("/add", authMiddleware, async (req, res) => {
       const post = new weightModel({
         weight: req.body.weight,
         userId: req.body.userId,
+        currentdate:x,
         date: bag,
       });
 
