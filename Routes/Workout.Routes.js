@@ -22,6 +22,7 @@ workoutRoutes.get("/", authMiddleware, async (req, res) => {
 });
 
 workoutRoutes.post("/add", authMiddleware, async (req, res) => {
+  const payload = req.body;
   let x = new Date();
   let y = JSON.stringify(x);
   let bag = "";
@@ -36,67 +37,82 @@ workoutRoutes.post("/add", authMiddleware, async (req, res) => {
         Target: req.body.Target,
         //20.8%(targetNutrition)
         date: bag,
-        //cal
         userId: req.body.userId,
       });
+
       const savedId = await cart.save();
       const workout = await WorkourModel.findById({ _id: savedId._id });
-      const cal=workout.burn
-      const ddd={burn:cal+req.body.calories}
+      const cal = workout.burn;
 
-      workout.type.push({
-        name: req.body.name,
-        motion: req.body.motion,
-        speed: req.body.speed,
-        time: req.body.time,
-        distance: req.body.distance,
-        calories: req.body.calories,
-        reps: req.body.reps,
-        level: req.body.level,
-      });
-      await workout.save();
-      await WorkourModel.findByIdAndUpdate({_id:savedId._id},ddd)
-      return res.status(201).send({ msg: "Your item is Added" });
+      for (let i = 0; i < payload.type.length; i++) {
+        const new_val = cal + payload.type[i].calories;
+        const newburn = { burn: new_val };
+        workout.type.push({
+          name: payload.type[i].name,
+          motion: payload.type[i].motion,
+          speed: payload.type[i].speed,
+          time: payload.type[i].time,
+          distance: payload.type[i].distance,
+          calories: payload.type[i].calories,
+          reps: payload.type[i].reps,
+          level: payload.type[i].level,
+        });
+
+        await workout.save();
+        await WorkourModel.findByIdAndUpdate({ _id: savedId._id }, newburn);
+      }
+      // await WorkourModel.findByIdAndUpdate({ _id: savedId._id }, ddd);
+      return res.status(202).send({ msg: "Your item is Added" });
     } else {
-      const workout = await WorkourModel.findById({ _id: data[0].id });
-      const cal=workout.burn
-      const ddd={burn:cal+req.body.calories}
-    
-      workout.type.push({
-        name: req.body.name,
-        motion: req.body.motion,
-        speed: req.body.speed,
-        time: req.body.time,
-        distance: req.body.distance,
-        calories: req.body.calories,
-        reps: req.body.reps,
-        level: req.body.level,
-      });
-      await workout.save();
-      await WorkourModel.findByIdAndUpdate({_id:data[0]._id},ddd)
-      return res.status(201).send({ msg: "Your item is updated" });
+      const workout = await WorkourModel.findById({ _id: data[0]._id });
+      console.log(workout);
+      const cal = workout.burn;
+
+      for (let i = 0; i < payload.type.length; i++) {
+        const new_val = cal + payload.type[i].calories;
+        const newburn = { burn: new_val };
+        workout.type.push({
+          name: payload.type[i].name,
+          motion: payload.type[i].motion,
+          speed: payload.type[i].speed,
+          time: payload.type[i].time,
+          distance: payload.type[i].distance,
+          calories: payload.type[i].calories,
+          reps: payload.type[i].reps,
+          level: payload.type[i].level,
+        });
+
+        await workout.save();
+        await WorkourModel.findByIdAndUpdate({ _id: data[0]._id }, newburn);
+      }
+      // await WorkourModel.findByIdAndUpdate({ _id: savedId._id }, ddd);
+      return res.status(201).send({ msg: "Your item is update" });
     }
   } catch (err) {
     res.send(err);
   }
 });
 
-// workoutRoutes.patch("/update/:id",authMiddleware, async (req, res) => {
+// workoutRoutes.patch("/update/:id", authMiddleware, async (req, res) => {
 //   const Id = req.params.id;
+//   const que = req.query.q;
 //   const payload = req.body;
 
-//   const hotel = await ProductModel.findOne({ _id: Id });
-
-//   const hotelId = hotel.created_by;
-//   console.log(hotelId);
-//   const vendorId_making_req = req.body.created_by;
 //   try {
-//     if (req.body. !== hotelId) {
-//       res.send({ msg: "You are not authorized" });
-//     } else {
-//       await ProductModel.findByIdAndUpdate({ _id: Id }, payload);
-//       res.send({ msg: "updated Sucessfully" });
+//     if (Id) {
+//       await WorkourModel.findByIdAndUpdate(
+//         { _id: Id },
+//         { Target: req.body.Target }
+//       );
 //     }
+//     if (Id && que) {
+//       const data = await WorkourModel.find({ _id: Id });
+//       if(data._id==que){
+
+//       }
+//     }
+
+//     res.send({ msg: "updated Sucessfully" });
 //   } catch (err) {
 //     console.log(err);
 //     res.send({ err: "Something went wrong" });

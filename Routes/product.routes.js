@@ -36,7 +36,6 @@ ProductRoutes.post("/add",async (req, res) => {
     let data1 = new ProductModel(data);
     let x=await data1.save()
     res.send(x);
-   
   } catch (err) {
     res.send({ msg: "could not add Data" });
   }

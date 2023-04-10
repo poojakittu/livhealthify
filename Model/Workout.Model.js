@@ -5,7 +5,7 @@ const WorkoutSchema = new mongoose.Schema(
     Target: { type: Number, default: 0 },
     //20.8%(targetNutrition)
     date: { type: String, default: "000" },
-    burn: { type: Number, required: true, default: 0 },
+    burn: { type: Number, default: 0 },
     //cal
     type: [
       {
@@ -15,8 +15,8 @@ const WorkoutSchema = new mongoose.Schema(
         time: { type: Number },
         distance: { type: Number },
         calories: { type: Number },
-        reps:{ type: String },
-        level:{ type: String }
+        reps: { type: String },
+        level: { type: String },
       },
     ],
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
