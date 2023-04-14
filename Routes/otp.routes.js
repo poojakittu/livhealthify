@@ -28,6 +28,8 @@ router.post("/send", async (req, res) => {
     targetweight,
     height,
     initialweight,
+    imgUrl,
+    subscriptionType,
     
 
     city
@@ -60,6 +62,8 @@ router.post("/send", async (req, res) => {
         language,
         email,
         name,
+        imgUrl,
+        subscriptionType,
         initialweight,
         otp: otpCode,
         expiresAt,
