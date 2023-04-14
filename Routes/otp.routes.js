@@ -156,4 +156,33 @@ router.get("/alluser",  async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedMeal = await OtpModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updatedMeal) {
+      return res.status(404).json({ message: "Meal not found" });
+    }
+    res.json(updatedMeal);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// DELETE route to delete a meal by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedMeal = await OtpModel.findByIdAndDelete(req.params.id);
+    if (!deletedMeal) {
+      return res.status(404).json({ message: "Meal not found" });
+    }
+    res.json(deletedMeal);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

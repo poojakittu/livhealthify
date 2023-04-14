@@ -17,6 +17,8 @@ const OtpSchema = new mongoose.Schema({
   phoneNumber: { type: Number, unique: true },
   email: { type: String },
   name: { type: String,required: true },
+  imgUrl: { type: String,default:"https://th.bing.com/th/id/OIP.GlXqxcR9EmviN5kuwaUsMQHaIB?pid=ImgDet&rs=1" },
+  subscriptionType:{type:String,default:"free"},
   otp: { type: String, required: true },
   expiresAt: { type: Date, required: true },
 },
