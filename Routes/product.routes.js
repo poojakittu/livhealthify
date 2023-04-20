@@ -41,45 +41,33 @@ ProductRoutes.post("/add",async (req, res) => {
   }
 });
 
-// ProductRoutes.patch("/update/:id", async (req, res) => {
-//   const Id = req.params.id;
-//   const payload = req.body;
+ProductRoutes.patch("/update/:id", async (req, res) => {
+  const Id = req.params.id;
+  const payload = req.body;
+  try {
+   
+      await ProductModel.findByIdAndUpdate({ _id: Id }, payload);
+      res.send({ msg: "updated Sucessfully" });
 
-//   const hotel = await ProductModel.findOne({ _id: Id });
+  } catch (err) {
+    console.log(err);
+    res.send({ err: "Something went wrong" });
+  }
+});
 
-//   const hotelId = hotel.created_by;
-//   console.log(hotelId);
-//   const vendorId_making_req = req.body.created_by;
-//   try {
-//     if (vendorId_making_req !== hotelId) {
-//       res.send({ msg: "You are not authorized" });
-//     } else {
-//       await ProductModel.findByIdAndUpdate({ _id: Id }, payload);
-//       res.send({ msg: "updated Sucessfully" });
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res.send({ err: "Something went wrong" });
-//   }
-// });
+ProductRoutes.delete("/delete/:id", async (req, res) => {
+  const Id = req.params.id;
+  const payload = req.body;
+  try {
+   
+      await ProductModel.findByIdAndDelete({ _id: Id }, payload);
+      res.send({ msg: "updated Sucessfully" });
 
-// ProductRoutes.delete("/delete/:id",  async (req, res) => {
-//   const Id = req.params.id;
-//   const note = await ProductModel.findOne({ _id: Id });
-//   const hotelId = note.created_by;
-//   const vendorId_making_req = req.body.created_by;
-//   try {
-//     if (vendorId_making_req !== hotelId) {
-//       res.send({ msg: "You are not Recognized" });
-//     } else {
-//       await ProductModel.findByIdAndDelete({ _id: Id });
-//       res.send("Deleted the Hotel Data");
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res.send({ msg: "Something went wrong" });
-//   }
-// });
+  } catch (err) {
+    console.log(err);
+    res.send({ err: "Something went wrong" });
+  }
+});
 
 module.exports = {
   ProductRoutes,
