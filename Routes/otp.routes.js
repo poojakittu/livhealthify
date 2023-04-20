@@ -159,6 +159,18 @@ router.get("/alluser",  async (req, res) => {
     });
   }
 });
+router.get("/user/:id",  async (req, res) => {
+
+  try {
+    const product = await OtpModel.find({_id:req.params.id});
+    res.send({ data: product });
+  } catch (error) {
+    res.status(500).send({
+      error: true,
+      msg: "something went wrong",
+    });
+  }
+});
 
 router.put("/:id", async (req, res) => {
   try {
