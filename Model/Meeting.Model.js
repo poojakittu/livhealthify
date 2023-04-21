@@ -7,6 +7,7 @@ const MeetingSchema = new mongoose.Schema({
   description: { type: String },
   startTime:{ type: String },
   endTime: { type: String },
+  coachId: { type: mongoose.Schema.Types.ObjectId },
 });
 
 // Define a mongoose model for the data

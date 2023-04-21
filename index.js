@@ -12,6 +12,8 @@ const { SubscriptionRoutes } = require("./Routes/Subscription.Routes");
 const {MealRoutes} = require("./Routes/Meal.Routes");
 const { MeetingRoutes } = require("./Routes/Meeting.Routes");
 const { coachRoutes } = require("./Routes/Coach.Routes");
+const { SubscriptionPlanRoutes } = require("./Routes/SubscriprionPlan.Routes");
+const { CoachusersRoutes } = require("./Routes/CoachUsers.Routes");
 
 require("dotenv").config();
 
@@ -40,6 +42,8 @@ app.use("/subscription",SubscriptionRoutes)
 app.use("/meal",MealRoutes)
 app.use("/meet",MeetingRoutes)
 app.use("/coach",coachRoutes)
+app.use("/subscriptionplan",SubscriptionPlanRoutes)
+app.use("/coachusers",CoachusersRoutes)
 
 app.listen(process.env.port, async () => {
   try {

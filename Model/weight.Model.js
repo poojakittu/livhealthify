@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const weightSchema = mongoose.Schema({
   weight: { type: Number, required: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId,  required: true },
   date: { type: String },
   currentdate: { type: String },
 },

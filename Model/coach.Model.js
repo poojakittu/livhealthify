@@ -8,7 +8,7 @@ const CoachSchema = new mongoose.Schema({
   phone: {type: Number},
   password2:{ type: String, required: true },
   gender:{ type: String, required: true },
-  img: { type: String },
+  img: { type: String }
 });
 
 const CoachModel = mongoose.model("Coach", CoachSchema);

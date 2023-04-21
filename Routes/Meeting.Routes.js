@@ -1,5 +1,6 @@
 const express = require("express");
 const { MeetingModel } = require("../Model/Meeting.Model");
+const { authenticate } = require("../middleware/authentication.middleware");
 const MeetingRoutes = express.Router();
 // Update the path as per your project structure
 
@@ -7,6 +8,15 @@ const MeetingRoutes = express.Router();
 MeetingRoutes.get("/", async (req, res) => {
   try {
     const meals = await MeetingModel.find();
+    res.send({ data: meals, total: meals.length });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+MeetingRoutes.get("/coachmeet",authenticate, async (req, res) => {
+  try {
+    const meals = await MeetingModel.find({coachId:req.body.vendorId});
     res.send({ data: meals, total: meals.length });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -24,9 +34,13 @@ MeetingRoutes.get("/", async (req, res) => {
 // });
 
 // POST route to create a new meal
-MeetingRoutes.post("/add", async (req, res) => {
-  const meal = new MeetingModel(req.body);
+MeetingRoutes.post("/add", authenticate, async (req, res) => {
+  const payload = req.body;
+  payload.coachId=req.body.vendorId;
+
+  const meal = new MeetingModel(payload);
   try {
+    console.log(meal);
     const newMeal = await meal.save();
     res.status(201).json(newMeal);
   } catch (err) {
@@ -48,7 +62,7 @@ MeetingRoutes.get("/:id", async (req, res) => {
 });
 
 // PUT route to update a meal by ID
-MeetingRoutes.put("/:id", async (req, res) => {
+MeetingRoutes.put("/:id",authenticate, async (req, res) => {
   try {
     const updatedMeal = await MeetingModel.findByIdAndUpdate(
       req.params.id,
@@ -65,7 +79,7 @@ MeetingRoutes.put("/:id", async (req, res) => {
 });
 
 // DELETE route to delete a meal by ID
-MeetingRoutes.delete("/:id", async (req, res) => {
+MeetingRoutes.delete("/:id",authenticate, async (req, res) => {
   try {
     const deletedMeal = await MeetingModel.findByIdAndDelete(req.params.id);
     if (!deletedMeal) {
