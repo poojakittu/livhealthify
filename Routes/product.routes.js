@@ -59,10 +59,8 @@ ProductRoutes.delete("/delete/:id", async (req, res) => {
   const Id = req.params.id;
   const payload = req.body;
   try {
-   
       await ProductModel.findByIdAndDelete({ _id: Id }, payload);
       res.send({ msg: "updated Sucessfully" });
-
   } catch (err) {
     console.log(err);
     res.send({ err: "Something went wrong" });

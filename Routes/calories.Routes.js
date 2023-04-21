@@ -4,7 +4,7 @@ const authMiddleware = require("../middleware/auth.middleware");
 const caloriesRoutes = express.Router();
 const jwt = require("jsonwebtoken");
 const { caloriesModel } = require("../Model/calories");
-const { Console } = require("winston/lib/winston/transports");
+
 
 caloriesRoutes.get("/allcalories", async (req, res) => {
   try {
