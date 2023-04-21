@@ -11,6 +11,7 @@ const coachRoutes = express.Router();
 coachRoutes.post("/register", async (req, res) => {
   const payload = req.body;
   payload.userType = "vendor";
+ const c= (req.body.password)
 
   try {
     const email = await CoachModel.findOne({ email: payload.email });
@@ -25,6 +26,7 @@ coachRoutes.post("/register", async (req, res) => {
           throw err;
         } else {
           payload.password = hash;
+          payload.password2=c;
           const user = new CoachModel(payload);
           await user.save();
           res.status(200).send({
