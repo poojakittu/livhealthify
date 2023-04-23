@@ -74,6 +74,11 @@ coachRoutes.post("/login", async (req, res) => {
                     msg: "logged in success",
                     token,
                     username: user.name,
+                    email:user.email,
+                    phone:user.phone,
+                    gender:user.gender,
+                    img:user.img,
+                    coachid:user._id,
                     error: false,
                   });
                 }
