@@ -45,8 +45,9 @@ CoachusersRoutes.get("/", authMiddleware, async (req, res) => {
   const x = req.body.userId;
   try {
     const product = await CoachUsersModel.find({ userId: x });
-    const data = await CoachModel.find({ _id: product.coachId });
-    res.send({ data: product });
+    const data = await CoachModel.find({ _id: product[0].coachId });
+   // console.log(product[0].coachId);
+    res.send({ data: data });
   } catch (error) {
     console.log("error", error);
     res.status(500).send({
