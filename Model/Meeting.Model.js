@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const MeetingSchema = new mongoose.Schema({
   type: { type: String },
-  status: { type: String ,default:"scheduled"},
+  status: { type: String ,default:"live"},
   meetingId: { type: String },
   title: { type: String },
   description: { type: String },
