@@ -10,7 +10,7 @@ const OtpSchema = new mongoose.Schema({
   age: { type: Number, required: true},
   physicallyactive: { type: String,required: true },
   medicalcondition:[{ type: String,required: true }],
-  height: { type: Number, required: true },
+  height: { type: String, required: true },
   currentweight: { type: Number, required: true },
   initialweight:{ type: Number, required: true },
   targetweight:{ type: Number, required: true },
