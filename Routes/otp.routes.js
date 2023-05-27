@@ -103,6 +103,24 @@ router.post("/send", async (req, res) => {
   }
 });
 
+router.get("/check/:phoneNumber", async (req, res) => {
+  const phoneNumber = req.params.phoneNumber;
+
+  try {
+    // Check if the phone number is already present in the database
+    const existingOtp = await OtpModel.findOne({ phoneNumber });
+
+    if (existingOtp) {
+      return res.status(200).json({ message: "Phone number already present" });
+    } else {
+      return res.status(200).json({ message: "Phone number is available" });
+    }
+  } catch (error) {
+    console.error("Error checking phone number:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
 // POST /otp/verify
 router.post("/verify", async (req, res) => {
   const { phoneNumber, otpCode } = req.body;
