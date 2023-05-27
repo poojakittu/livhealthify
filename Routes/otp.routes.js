@@ -113,7 +113,7 @@ router.get("/check/:phoneNumber", async (req, res) => {
     if (existingOtp) {
       return res.status(200).json({ message: "Registerd",status:true });
     } else {
-      return res.status(200).json({ message: "Phone number is available" });
+      return res.status(200).json({ message: "Not Registerd" });
     }
   } catch (error) {
     console.error("Error checking phone number:", error);
