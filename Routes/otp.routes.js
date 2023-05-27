@@ -111,9 +111,9 @@ router.get("/check/:phoneNumber", async (req, res) => {
     const existingOtp = await OtpModel.findOne({ phoneNumber });
 
     if (existingOtp) {
-      return res.status(200).json({ message: "Registerd",status:true });
+      return res.status(200).json({ message: "Registered",status:true });
     } else {
-      return res.status(200).json({ message: "Not Registerd" });
+      return res.status(200).json({ message: "Not Registered",status:false });
     }
   } catch (error) {
     console.error("Error checking phone number:", error);
