@@ -190,7 +190,7 @@ router.get("/user/:id",  async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id",authMiddleware, async (req, res) => {
   try {
     const updatedMeal = await OtpModel.findByIdAndUpdate(
       req.params.id,
@@ -198,7 +198,7 @@ router.put("/:id", async (req, res) => {
       { new: true }
     );
     if (!updatedMeal) {
-      return res.status(404).json({ message: "Meal not found" });
+      return res.status(404).json({ message: "user not found" });
     }
     res.json(updatedMeal);
   } catch (err) {
@@ -207,11 +207,11 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE route to delete a meal by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",authMiddleware, async (req, res) => {
   try {
     const deletedMeal = await OtpModel.findByIdAndDelete(req.params.id);
     if (!deletedMeal) {
-      return res.status(404).json({ message: "Meal not found" });
+      return res.status(404).json({ message: "user not found" });
     }
     res.json(deletedMeal);
   } catch (err) {
